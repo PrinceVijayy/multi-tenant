@@ -1,0 +1,24 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: multi-tenant
+  flyway:
+    locations: classpath:db/migration/default
+    schemas: default
+
+logging:
+  pattern:
+    correlation: '[%X{traceId:-}-%X{spanId:-}] [%X{tenantId:-}] '
+
+multi-tenancy:
+  tenants:
+    - id: jio
+      enabled: true
+      schema:  multi-tenancy-jio
+      issuer: http://localhost:8080/ojas/jio
+    - id: airtel
+      enabled: true
+      schema:  multi-tenancy-jio
+      issuer: http://localhost:8080/ojas/airtel
